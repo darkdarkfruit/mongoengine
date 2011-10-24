@@ -76,6 +76,14 @@ class StringField(BaseField):
             # escape unsafe characters which could lead to a re.error
             value = re.escape(value)
             value = re.compile(regex % value, flags)
+        else if op == 'regex': # a plain regex
+            if type(value) == type(re.compile('sample')): # already a regex pattern?
+                pass
+            else if isinstance(value, basestring): # a string pattern?
+                value = re.compile(value)
+            else:  # this clause should never happen.
+                pass 
+            
         return value
 
 
